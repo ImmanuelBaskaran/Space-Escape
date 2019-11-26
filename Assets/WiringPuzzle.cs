@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Leap.Unity.Interaction;
 
 
 [RequireComponent(typeof(MeshRenderer))]
 public class WiringPuzzle : MonoBehaviour
 {
+
     public int gridSizeX;
     public int gridSizeY;
 
@@ -188,6 +190,9 @@ public class WiringPuzzle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
+
         // Instantiate at position (0, 0, 0) and zero rotation.
         for (int i = 3; i >= -4; i--)
         {

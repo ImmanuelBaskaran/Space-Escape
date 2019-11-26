@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Leap.Unity.Interaction;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WireComponent : MonoBehaviour
 {
+
 
     public delegate void Callback(int x, int y);
 
@@ -20,13 +22,21 @@ public class WireComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-               
+                       
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+
+    public void invoke()
+    {
+        callback(x, y);
+        Debug.Log("You hit me!");
+        transform.Rotate(0, 0, -90);
     }
 
     void OnTriggerEnter(Collider a)
