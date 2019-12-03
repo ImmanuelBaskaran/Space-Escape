@@ -20,24 +20,18 @@ public class WiringPuzzle : MonoBehaviour
     public Material[] cases;
     public Color[] sourceColors;
 
-    private int[,] puzzlepieces = {{0,1,1,4,1,1,2,4},
-                                   {1,1,1,3,4,4,2,3},
-                                   {4,4,2,4,4,1,2,2},
-                                   {3,4,1,3,4,4,2,2},
-                                   {1,4,3,3,4,4,2,3},
-                                   {2,4,2,2,4,3,1,4},
-                                   {4,4,4,3,4,1,2,4},
-                                   {3,4,2,2,4,4,2,0}};
+    private int[,] puzzlepieces = {{0,1,1,0,0},
+                                   {1,1,1,2,4},
+                                   {4,4,2,4,4},
+                                   {2,4,1,1,4},
+                                   {1,4,2,1,0}};
 
 
-    private int[,] orientations = { {1,2,1,1,0,0,3,1},
-                                    {3,0,3,1,0,0,3,1},
-                                    {1,3,2,1,0,0,3,1},
-                                    {1,3,2,1,0,0,3,1},
-                                    {1,3,2,1,0,0,3,3},
-                                    {1,3,2,1,0,0,3,3},
-                                    {1,3,2,1,0,0,3,1},
-                                    {1,3,2,1,0,0,3,3}};
+    private int[,] orientations = { {1,2,1,2,3},
+                                    {3,0,3,1,0},
+                                    {1,3,2,1,0},
+                                    {1,3,2,1,0},
+                                    {1,3,2,1,3}};
 
 
     public GameObject case1;
@@ -54,16 +48,16 @@ public class WiringPuzzle : MonoBehaviour
         }
         if (tileCase == 4)
         {
-            return orientation == (direction) || orientation == ((direction - 2)%4);
+            return orientation == (direction) || (orientation + 2) % 4 == direction;
         }
         else if (tileCase == 2)
         {
-            return orientation == (direction) || orientation == (((direction) - 2) % 4) || orientation == (((direction) - 1) % 4);
+            return orientation == (direction) || (orientation + 2) % 4 == direction || (orientation + 1) % 4 == direction;
         }
 
         else if (tileCase == 1)
         {
-            return orientation == (direction) || orientation == (((direction) - 1) % 4);
+            return orientation == (direction) || (orientation + 1) % 4 == direction;
         }
         else if (tileCase == 3)
         {
@@ -83,8 +77,7 @@ public class WiringPuzzle : MonoBehaviour
         //# souce/sink
         if (tileCase == 0)
         {
-            orientations = new int[] { orientation };
-            return orientations;
+            return new int[] { orientation };
         }
         //   #line
         else if (tileCase == 4)
@@ -113,13 +106,13 @@ public class WiringPuzzle : MonoBehaviour
     public int[] mapToDirection(int outDir) {
         int incomingDirection = (2 + outDir) % 4;
         if (outDir == 0) {
-            return new int[] { 0, -1, incomingDirection };
+            return new int[] { 0, -1, (incomingDirection) };
         }
         else if (outDir == 1) {
             return new int[] { 1, 0, incomingDirection };
         }
         else if (outDir == 2) {
-            return new int[] { 0, 1, incomingDirection };
+            return new int[] { 0, 1, (incomingDirection) };
         }
         else if(outDir == 3){
             return new int[] { -1, 0, incomingDirection };
@@ -152,9 +145,13 @@ public class WiringPuzzle : MonoBehaviour
             foreach (int[] n in neighbors) {
                 if (n[1] >= rowsOrHeight || n[0] >= colsOrWidth || n[1] < 0 || n[0] < 0) continue;
                 
-                if (!seen[n[1] * rowsOrHeight + n[0]] && canMoveTo(cases[n[1], n[0]], orientation[n[1], n[0]], n[2])) {
-
-                    filteredNeighbors.Add(n);
+                if (!seen[n[1] * rowsOrHeight + n[0]]) {
+                    Debug.Log("I am at "+x1+":"+y1);
+                    if (canMoveTo(cases[n[1], n[0]], orientation[n[1], n[0]], n[2]))
+                    {
+                        filteredNeighbors.Add(n);
+                    }
+                   
                 }
             }
 
@@ -194,9 +191,9 @@ public class WiringPuzzle : MonoBehaviour
 
 
         // Instantiate at position (0, 0, 0) and zero rotation.
-        for (int i = 3; i >= -4; i--)
+        for (int i = 0; i >= -4; i--)
         {
-            for (int j = 3; j >= -4; j--)
+            for (int j = 0; j >= -4; j--)
             {
                 Vector3 test = this.transform.position;
                 test.y += -0.055f + (-i * 0.125f);

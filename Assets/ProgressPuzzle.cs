@@ -5,8 +5,12 @@ using UnityEngine;
 public class ProgressPuzzle : MonoBehaviour
 {
 
+    public int START_VALUE = 111;
+    public int TARGET_VALUE = 5000;
+
     private readonly int progress_threshold = 5000;
-    private int progress = 0;
+    private long progress;
+    private bool done = false;
 
     private int lever1_counter = 1;
     private int lever2_counter = 1;
@@ -18,13 +22,19 @@ public class ProgressPuzzle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        progress = START_VALUE;
     }
 
     // Update is called once per frame
     void Update()
     {
-        mesh.text = progress.ToString();
+        if (!done)
+        {
+            mesh.text = progress.ToString();
+        } else
+        {
+            mesh.text = "Unlocked";
+        }
 
 
     }
@@ -32,12 +42,17 @@ public class ProgressPuzzle : MonoBehaviour
 
     public void lever1()
     {
-        progress += 100;
-        lever1_counter++;
+        
 
-        if (lever1_counter % 3 == 0)
+        if (progress % 2 == 0)
         {
-            progress -= 50;
+            progress /=2;
+        }
+        else
+        {
+            progress *= 3;
+            progress++;
+
         }
 
         if (progress > progress_threshold)
@@ -50,13 +65,14 @@ public class ProgressPuzzle : MonoBehaviour
 
     public void lever2()
     {
-        progress += 250;
-        lever2_counter++;
 
-        if (lever2_counter % 7 == 0)
+        int newProgress = 0;
+
+        foreach(char c in progress.ToString())
         {
-            progress -= 700;
+            newProgress += int.Parse(c.ToString());
         }
+        progress = newProgress;
 
         if (progress > progress_threshold)
         {
@@ -66,33 +82,25 @@ public class ProgressPuzzle : MonoBehaviour
 
     public void lever3()
     {
-        progress += 1000;
-        lever3_counter++;
 
-        if (lever3_counter % 4 == 0)
-        {
-            progress = 0;
-        }
+        progress = progress * progress;
 
-        if (progress > progress_threshold)
+        if (progress < 0)
         {
-            // Unlock the portal
+            progress = START_VALUE;
         }
     }
 
     public void lever4()
     {
-        progress += 1000;
-        lever4_counter++;
-
-        if (lever4_counter % 4 == 0)
+        
+        if(progress == TARGET_VALUE)
         {
-            progress = 0;
+            done = true;
         }
-
-        if (progress > progress_threshold)
+        else
         {
-            // Unlock the portal
+            progress = START_VALUE;
         }
     }
 }
