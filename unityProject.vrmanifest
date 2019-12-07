@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.vr2.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Documents\\GitHub\\Space-Escape\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\localadmin\\Desktop\\Space-Escape\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "vr2 [Testing]"
