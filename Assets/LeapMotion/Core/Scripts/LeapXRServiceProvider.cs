@@ -216,19 +216,10 @@ namespace Leap.Unity {
       resetShaderTransforms();
     }
 
-        private void OnBeginCameraRendering(Camera[] cameras)
-        {
-            if (cameras[0] == _cachedCamera)
-            {
-                OnPreCull();
-            }
-        }
-
-        protected override void Start() {
+    protected override void Start() {
       base.Start();
       _cachedCamera = GetComponent<Camera>();
-            UnityEngine.Experimental.Rendering.RenderPipeline.beginFrameRendering += OnBeginCameraRendering;
-            if (_deviceOffsetMode == DeviceOffsetMode.Transform && _deviceOrigin == null) {
+      if (_deviceOffsetMode == DeviceOffsetMode.Transform && _deviceOrigin == null) {
         Debug.LogError("Cannot use the Transform device offset mode without " +
                        "specifying a Transform to use as the device origin.", this);
         _deviceOffsetMode = DeviceOffsetMode.Default;
