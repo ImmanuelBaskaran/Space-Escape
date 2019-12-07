@@ -77,32 +77,32 @@ public class PoliceLight : MonoBehaviour
     }
     IEnumerator waitforred()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 2;
     }
     IEnumerator waitforblue()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 3;
     }
     IEnumerator waitforyellow()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 4;
     }
     IEnumerator waitforgreen()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 5;
     }
     IEnumerator waitforblue2()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 6;
     }
     IEnumerator waitforyellow2()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
         Number = 1;
     }
 
