@@ -255,5 +255,9 @@ public class WiringPuzzle : MonoBehaviour
        
         orientations[x, y] = (orientations[x, y] + 1)%4;
         Debug.Log(pathTrace(puzzlepieces, orientations, 0, 0));
+        if(pathTrace(puzzlepieces, orientations, 0, 0))
+        {
+            PuzzleState.Solved(0);
+        }
     }
 }

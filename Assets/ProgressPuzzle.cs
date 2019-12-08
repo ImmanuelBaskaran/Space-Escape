@@ -33,7 +33,8 @@ public class ProgressPuzzle : MonoBehaviour
             mesh.text = progress.ToString();
         } else
         {
-            mesh.text = "Unlocked";
+            mesh.text = "Stabilised";
+            PuzzleState.Solved(1);
         }
 
 
