@@ -9,9 +9,21 @@ public class PuzzleState : MonoBehaviour
 
     public GameObject[] solvedMarkers;
 
-
+    static bool debounceAudio;
     public GameObject allSolvedMarker;
- 
+
+    public AudioClip allClearClip;
+
+    public static AudioClip freedom;
+    public static AudioClip puzzleSolve;
+    public static AudioSource speaker;
+
+    public void Start()
+    {
+        speaker = GetComponent<AudioSource>();
+        freedom = allClearClip;
+        debounceAudio = false;
+    }
 
     public static void Solved(int i)
     {
@@ -19,9 +31,20 @@ public class PuzzleState : MonoBehaviour
         state.puzzlesSolved[i] = true;
         state.solvedMarkers[i].SetActive(true);
 
-        if(state.puzzlesSolved.All(x => x))
+        if(state.puzzlesSolved.All(x => x) && !debounceAudio)
         {
+            debounceAudio = true;
             state.allSolvedMarker.SetActive(true);
+            Debug.Log("Testing");
+            speaker.clip = freedom;
+            speaker.PlayDelayed(3);
+        } else
+        {
+            speaker.PlayOneShot(puzzleSolve);
         }
+    }
+    public void Solve(int i)
+    {
+        Solved(i);
     }
 }

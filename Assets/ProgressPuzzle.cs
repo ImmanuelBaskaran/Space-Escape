@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class ProgressPuzzle : MonoBehaviour
 {
 
@@ -18,7 +19,10 @@ public class ProgressPuzzle : MonoBehaviour
     private int lever4_counter = 1;
 
     public TextMesh mesh;
-
+    public AudioClip wrong;
+    public AudioClip right;
+    public AudioSource speaker;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -98,10 +102,12 @@ public class ProgressPuzzle : MonoBehaviour
         if(progress == TARGET_VALUE)
         {
             done = true;
+            speaker.PlayOneShot(right);
         }
         else
         {
             progress = START_VALUE;
+            speaker.PlayOneShot(wrong);
         }
     }
 }

@@ -39,6 +39,8 @@ public class WiringPuzzle : MonoBehaviour
     public GameObject case3;
     public GameObject case4;
     public GameObject case5;
+    public AudioSource speaker;
+    public AudioClip done;
 
 
     private bool canMoveTo(int tileCase, int orientation, int direction) {
@@ -258,6 +260,7 @@ public class WiringPuzzle : MonoBehaviour
         if(pathTrace(puzzlepieces, orientations, 0, 0))
         {
             PuzzleState.Solved(0);
+            speaker.PlayOneShot(done);
         }
     }
 }
