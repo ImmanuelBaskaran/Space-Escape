@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Leap.Unity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +7,18 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
-    public GameObject from;
-    public GameObject to;
+    public Transform target;
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        from.SetActive(false);
-        to.SetActive(true);
+        if(other.tag.Equals("PlayerHead"))
+        {
+            //Transform leapRig = GameObject.FindGameObjectWithTag("Player").transform;
+            //leapRig.parent = target;
+            //leapRig.localPosition = Vector3.zero;
+            //XRSupportUtil.Recenter();
+
+
+        }
     }
 }
